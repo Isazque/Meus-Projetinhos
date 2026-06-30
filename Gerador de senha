@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <title>Gerador de Senha</title>
+  <style>
+* {
+    font-family: 'Inter';
+    box-sizing: border-box;
+}
+body {
+    height: 100vh;
+    background: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: emergir 1s ease;
+}
+@keyframes emergir {
+    from {
+        transform: translateY(25px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+#wrapper {
+    position: relative;
+    width: 75%;
+    max-width: 400px; 
+    height: auto;
+    min-height: 380px;
+    padding: 25px;
+    background: black;
+    border-radius: 7.5px;
+}
+#wrapper::before, #wrapper::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 3px;
+    border-radius: 7.5px;
+    background-image:
+    conic-gradient(
+        from var(--angle),
+        #00441B,
+        #006D2C,
+        #238B45,
+        #41AB5D
+    );
+    animation: spin 3s linear infinite;
+}
+#wrapper::before {
+    filter: blur(1.5rem);
+    opacity: .5;
+}
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}
+#title {
+    color: darkgreen;
+    text-align: center;
+}
+.subtitle {
+    color: green;
+    text-align: center;
+}
+#botao {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 7.5px;
+    background:
+    radial-gradient(circle, green, darkgreen);
+    border: 1px solid #333;
+    transition: .3s ease;
+}
+#botao:hover {
+    transform: translateY(-5px);
+    border-color: #004d00;
+    box-shadow:
+    0 0 10px #004d00,
+    0 0 25px #004d00,
+    0 0 40px #004d00;
+}
+#text-aguardar {
+    color: green;
+    text-align: center;
+    font-size: 12px;
+}
+#senha {
+    color: green;
+    text-align: center;
+}
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <h3 id="title">Gerador de Senha</h3>
+      <h6 class="subtitle"> Clique no botão para gerar uma senha aleatória. </h6>
+      <button onclick="gerar()" id="botao">Clique aqui</button>
+      <p id="text-aguardar">Sua senha aparecerá abaixo.</p>
+        <h2 id="senha"></h2>
+        <script>
+function gerar() {
+    let caracteres =
+    `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$_&-+()*"':;?!№€£₱¥₹—·–<{>}'/{`;
+    let senha = "";
+    for(let i = 0; i < 8; i++) {
+        let aleatorio =
+        Math.floor(Math.random() * caracteres.length);
+        senha += caracteres[aleatorio];
+    }
+  document.getElementById("senha").innerText = senha;
+  document.getElementById("botao").innerText =
+  "Gerar outra";
+  document.getElementById("text-aguardar").innerText =
+  "Sua senha é:";
+}
+         </script>
+       </div>
+     </body>
+</html>
